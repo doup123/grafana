@@ -1,8 +1,49 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "influxdb",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.2.0"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": []
   },
-  "editMode": false,
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -16,7 +57,7 @@
       "height": 163,
       "panels": [
         {
-          "content": "Service ID: 200",
+          "content": "Service ID: 100",
           "id": 3,
           "links": [],
           "mode": "markdown",
@@ -26,12 +67,12 @@
         },
         {
           "cacheTimeout": null,
-          "colorBackground": true,
-          "colorValue": false,
+          "colorBackground": false,
+          "colorValue": true,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": "influxdb",
           "format": "dtdurations",
@@ -95,7 +136,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "ServiceListMode2",
+              "measurement": "ServiceList",
               "policy": "default",
               "refId": "A",
               "resultFormat": "time_series",
@@ -117,13 +158,13 @@
                 {
                   "key": "ServiceID",
                   "operator": "=",
-                  "value": "200"
+                  "value": "Service100"
                 }
               ]
             }
           ],
-          "thresholds": "0.001,0.020",
-          "title": "ServiceID 200",
+          "thresholds": "20,40",
+          "title": "ServiceID 100",
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -146,7 +187,7 @@
             "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": "influxdb",
-          "format": "none",
+          "format": "dtdurations",
           "gauge": {
             "maxValue": 100,
             "minValue": 0,
@@ -171,9 +212,9 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": " %",
+          "postfix": " ",
           "postfixFontSize": "50%",
-          "prefix": "Loss",
+          "prefix": "Minimum Delay:",
           "prefixFontSize": "50%",
           "rangeMaps": [
             {
@@ -206,7 +247,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "ServiceListMode2",
+              "measurement": "ServiceList",
               "policy": "default",
               "refId": "A",
               "resultFormat": "time_series",
@@ -214,7 +255,7 @@
                 [
                   {
                     "params": [
-                      "Loss"
+                      "Delay_min"
                     ],
                     "type": "field"
                   },
@@ -228,12 +269,12 @@
                 {
                   "key": "ServiceID",
                   "operator": "=",
-                  "value": "200"
+                  "value": "Service100"
                 }
               ]
             }
           ],
-          "thresholds": "10,50",
+          "thresholds": "10,20",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -318,10 +359,40 @@
                   {
                     "params": [],
                     "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Maximum Delay"
+                    ],
+                    "type": "alias"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "Delay_min"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  },
+                  {
+                    "params": [
+                      "Minimum Delay"
+                    ],
+                    "type": "alias"
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "ServiceID",
+                  "operator": "=",
+                  "value": "Service100"
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -375,7 +446,7 @@
     "list": []
   },
   "time": {
-    "from": "now/w",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -404,6 +475,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "Marinos-Testing-Dashboard3",
-  "version": 6
+  "title": "Marinos-Testing-Dashboard",
+  "version": 13
 }
